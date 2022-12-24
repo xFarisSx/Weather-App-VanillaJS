@@ -47,7 +47,8 @@ body::after {
 	bottom: 10%;
 	justify-content: space-around;
 	align-items: center;
-	width: 600px;
+	/* width: 600px; */
+	width: 55%;
 	opacity: 0.9;
 }
 .info .temperature h1 {
