@@ -22,16 +22,17 @@ function createWeatherObj(data) {
 export const loadWeather = async function (city = undefined) {
     try {
         if (city) {
-            const cityRes = await fetch(CITY_API_URL + city, {
-                method: "GET",
-                url: CITY_API_URL + city,
-                headers: { "X-Api-Key": CITY_API_KEY },
-                contentType: "application/json",
-            });
+            const cityRes = await fetch(CITY_API_URL + `&query=${city}`);
+
+            if (!cityRes.ok) throw new Error("Cannot find the positions!");
+
             const dataCity = await cityRes.json();
 
-            const lat = dataCity[0].latitude;
-            const lon = dataCity[0].longitude;
+            console.log(dataCity);
+
+            const lat = dataCity.data[0].latitude;
+            const lon = dataCity.data[0].longitude;
+            console.log(city);
 
             const res = await fetch(
                 API_URL.replace("{lat}", lat).replace("{lon}", lon)
@@ -62,6 +63,6 @@ export const loadWeather = async function (city = undefined) {
             });
         }
     } catch (err) {
-        throw err;
+        throw err.message;
     }
 };

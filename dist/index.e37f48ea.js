@@ -1801,17 +1801,13 @@ function createWeatherObj(data) {
 const loadWeather = async function(city) {
     try {
         if (city) {
-            const cityRes = await fetch((0, _configJs.CITY_API_URL) + city, {
-                method: "GET",
-                url: (0, _configJs.CITY_API_URL) + city,
-                headers: {
-                    "X-Api-Key": (0, _configJs.CITY_API_KEY)
-                },
-                contentType: "application/json"
-            });
+            const cityRes = await fetch((0, _configJs.CITY_API_URL) + `&query=${city}`);
+            if (!cityRes.ok) throw new Error("Cannot find the positions!");
             const dataCity = await cityRes.json();
-            const lat = dataCity[0].latitude;
-            const lon = dataCity[0].longitude;
+            console.log(dataCity);
+            const lat = dataCity.data[0].latitude;
+            const lon = dataCity.data[0].longitude;
+            console.log(city);
             const res = await fetch((0, _configJs.API_URL).replace("{lat}", lat).replace("{lon}", lon));
             const data = await res.json();
             state.weather = createWeatherObj(data);
@@ -1829,7 +1825,7 @@ const loadWeather = async function(city) {
             });
         });
     } catch (err) {
-        throw err;
+        throw err.message;
     }
 };
 
@@ -2459,8 +2455,8 @@ parcelHelpers.export(exports, "CITY_API_KEY", ()=>CITY_API_KEY);
 parcelHelpers.export(exports, "CITY_API_URL", ()=>CITY_API_URL);
 const API_KEY = "c516e3a0289cc01f6a2383b5d14eda80";
 const API_URL = `https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid=${API_KEY}`;
-const CITY_API_KEY = `0w3dZtJWa4iYYdk4PHbZRQ==Es8uaPq6aE2wl7dL`;
-const CITY_API_URL = `https://api.api-ninjas.com/v1/geocoding?city=`;
+const CITY_API_KEY = `e00bf2a34848112431646399dab3fe23`;
+const CITY_API_URL = `http://api.positionstack.com/v1/forward?access_key=${CITY_API_KEY}`;
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hGI1E":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
