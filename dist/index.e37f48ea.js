@@ -2619,7 +2619,8 @@ class WeatherView {
                 }
                 break;
             case "snow":
-                this._parentElement.style.backgroundImage = `url('https://images.unsplash.com/photo-1516431883659-655d41c09bf9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8c25vd2luZ3xlbnwwfHwwfHw%3D&w=1000&q=80')`;
+                this._parentElement.style.backgroundImage = `url('https://hips.hearstapps.com/clv.h-cdn.co/assets/16/49/gettyimages-85786660-1.jpg')`;
+                this._parentElement.querySelector(".info").style.color = "#222";
                 switch(day){
                     case true:
                         document.querySelector(".sign img").src = "http://openweathermap.org/img/wn/13d@2x.png";
